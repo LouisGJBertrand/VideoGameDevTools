@@ -80,7 +80,7 @@
         <option value="Custom">Custom</option>
     </select>
 
-    <input type="text" name="ConventionSyntax" id="ConventionSyntax" style="width: 500px"><br><br>
+    <input type="text" name="ConventionSyntax" id="ConventionSyntax" style="width: 500px" onchange="document.querySelector('#Convention').value = 'Custom'; UpdateResult()"><br><br>
 
     <h2>Texture Infos</h2>
     <span>Model Name (3d object name): </span><input type="text" name="ModelName" id="ModelName" onchange="UpdateResult()"><br>
