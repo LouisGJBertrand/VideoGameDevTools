@@ -1,4 +1,4 @@
-# VideoGameWorkingTools
+# Video Games Working Tools
 set of tools i made to ease video game creation for Game Art/Design/Prog students
 
 MIT Licensed tools
