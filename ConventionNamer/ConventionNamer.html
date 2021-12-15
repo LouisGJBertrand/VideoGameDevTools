@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convetion Namer</title>
+
+    <!-- TOOL MADE BY LOUIS BERTRAND (artstation/louisgjbertrand instagram/louisgjbertrand github/pylott) -->
+
+    <!-- Page Script -->
+    <script>
+        function updateUIConventionSelectBox() {
+            if(document.querySelector("#Convention").value == "Unreal")
+            {
+                document.querySelector("#ConventionSyntax").value = "T_%ModelName%_%MaterialName%_%TextureType%.%FileExtension%"
+            }
+        }
+
+        function ParseResults() {
+            let parsedResult = "";
+            var ConventionSyntax = document.querySelector("#ConventionSyntax").value;
+
+            var modelName = document.querySelector("#ModelName").value
+            var materialName = document.querySelector("#MaterialName").value
+            var textureType = document.querySelector("#TextureType").value
+            var fileExtension = document.querySelector("#FileExtension").value
+
+            parsedResult = ConventionSyntax;
+
+            parsedResult = parsedResult.replace(/%ModelName%/g, modelName);
+            parsedResult = parsedResult.replace(/%MaterialName%/g, materialName);
+            parsedResult = parsedResult.replace(/%TextureType%/g, textureType);
+            parsedResult = parsedResult.replace(/%FileExtension%/g, fileExtension);
+
+            return parsedResult;
+        }
+
+        function UpdateResult() {
+            document.querySelector("#Result").value = ParseResults();
+        }
+
+        function CopyResult() {
+            var copyText = document.querySelector("#Result");
+            copyText.select();
+            document.execCommand("copy")
+        }
+        function SaveResult() {
+            document.querySelector("#Results").innerHTML = document.querySelector("#Result").value + "\n" + document.querySelector("#Results").innerHTML;
+        }
+
+        function SaveResults() {
+            Download("Saved_Conventions.txt", document.querySelector("#Results").innerHTML);
+        }
+
+    </script>
+    <!-- Donwload a text file script - source: https://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server -->
+    <script>
+        function Download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+        }
+    </script>
+</head>
+<body>
+    <h1>Convention Namer</h1>
+
+    <h2>Convention</h2>
+    <select name="Convention" id="Convention" onchange="updateUIConventionSelectBox()">
+        <option value="Unreal">Unreal</option>
+        <option value="Custom">Custom</option>
+    </select>
+
+    <input type="text" name="ConventionSyntax" id="ConventionSyntax" style="width: 500px"><br><br>
+
+    <h2>Texture Infos</h2>
+    <span>Model Name (3d object name): </span><input type="text" name="ModelName" id="ModelName" onchange="UpdateResult()"><br>
+    <span>Material Name: </span><input type="text" name="MaterialName" id="MaterialName" onchange="UpdateResult()"><br>
+    <span>Texture Type: </span>
+    <select name="TextureType" id="TextureType" onchange="UpdateResult()">
+        <option value="Albedo">Albedo</option>
+        <option value="Normal">Normal</option>
+        <option value="Height">Height</option>
+        <option value="Displacement">Displacement</option>
+        <option value="Emissive">Emissive</option>
+        <option value="Emissive_Color">EmissiveColor</option>
+        <option value="Opacity">Opacity (Alpha mask)</option>
+    </select><br>
+    <span>File Extension: </span>
+    <select name="FileExtension" id="FileExtension" onchange="UpdateResult()">
+        <option value="tga">targa (.tga)</option>
+        <option value="jpg">jpeg (.jpg)</option>
+        <option value="png">png (.png)</option>
+        <option value="exr">open exr/exr (.exr)</option>
+    </select><br>
+
+    <br>
+    <h2>results: </h2><br>
+    <span>Texture: </span><input type="text" name="Result" id="Result" style="width: 500px"><br>
+    <button onclick="CopyResult()">Copy Result</button><button onclick="SaveResult()">Save Result</button><button onclick="SaveResults()">Export List</button>
+    <pre id="Results">
+
+    </pre>
+
+    <script>
+        // Update On start
+        updateUIConventionSelectBox()
+        UpdateResult()
+    </script>
+</body>
+</html>
