@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convetion Namer</title>
+    <title>Texture Convetional Namer</title>
 
     <!-- TOOL MADE BY LOUIS BERTRAND (artstation/louisgjbertrand instagram/louisgjbertrand github/pylott) -->
 
@@ -14,6 +14,10 @@
             if(document.querySelector("#Convention").value == "Unreal")
             {
                 document.querySelector("#ConventionSyntax").value = "T_%ModelName%_%MaterialName%_%TextureType%.%FileExtension%"
+            }
+            else if(document.querySelector("#Convention").value == "UnrealNoExt")
+            {
+                document.querySelector("#ConventionSyntax").value = "T_%ModelName%_%MaterialName%_%TextureType%"
             }
             UpdateResult()
         }
@@ -77,10 +81,18 @@
     <h2>Convention</h2>
     <select name="Convention" id="Convention" onchange="updateUIConventionSelectBox()">
         <option value="Unreal">Unreal</option>
+        <option value="UnrealNoExt">Unreal No Extension</option>
         <option value="Custom">Custom</option>
     </select>
 
     <input type="text" name="ConventionSyntax" id="ConventionSyntax" style="width: 500px" onchange="document.querySelector('#Convention').value = 'Custom'; UpdateResult()"><br><br>
+
+    <p>Param list: <br>
+    - %MaterialName% - Material Name<br>
+    - %ModelName% - Model Name<br>
+    - %TextureType% - Texture Type<br>
+    - %FileExtension% - File Extension<br>
+    </p>
 
     <h2>Texture Infos</h2>
     <span>Model Name (3d object name): </span><input type="text" name="ModelName" id="ModelName" onchange="UpdateResult()"><br>
@@ -88,12 +100,24 @@
     <span>Texture Type: </span>
     <select name="TextureType" id="TextureType" onchange="UpdateResult()">
         <option value="Albedo">Albedo</option>
+        <option value="Diffuse">Diffuse</option>
         <option value="Normal">Normal</option>
         <option value="Height">Height</option>
+        <option value="Height">Roughness</option>
         <option value="Displacement">Displacement</option>
         <option value="Emissive">Emissive</option>
-        <option value="Emissive_Color">EmissiveColor</option>
-        <option value="Opacity">Opacity (Alpha mask)</option>
+        <option value="EmissiveColor">EmissiveColor</option>
+        <option value="Opacity">Opacity</option>
+        <option value="Alpha">Alpha</option>
+        <option value="AlbedoTransparency">AlbedoTransparency</option>
+        <option value="AO">Ambiant Occlusion (AO)</option>
+        <option value="Metalic">Metalic</option>
+        <option value="MetalicSmoothness">MetalicSmoothness</option>
+        <option value="Miscellaneous">Miscellaneous (Divers)</option>
+        <option value="Custom1">Custom 1</option>
+        <option value="Custom2">Custom 2</option>
+        <option value="Custom3">Custom 3</option>
+        <option value="Custom4">Custom 4</option>
     </select><br>
     <span>File Extension: </span>
     <select name="FileExtension" id="FileExtension" onchange="UpdateResult()">
