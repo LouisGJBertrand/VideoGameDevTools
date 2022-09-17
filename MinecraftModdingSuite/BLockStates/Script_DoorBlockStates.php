@@ -90,24 +90,26 @@ as the mod id.
     else
     {{
 
-        $modelsDirPath = __DIR__."/templates/singleHeightDoor/models";
-        $modelsDir = scandir($modelsDirPath);
+        $modelsBlocksDirPath = __DIR__."/templates/singleHeightDoor/models/block";
+        $modelsDir = scandir($modelsBlocksDirPath);
 
         mkdir(__DIR__."/output/".$uid);
         mkdir(__DIR__."/output/".$uid."/blockstates");
         mkdir(__DIR__."/output/".$uid."/models");
+        mkdir(__DIR__."/output/".$uid."/models/block");
+        mkdir(__DIR__."/output/".$uid."/models/item");
 
-        for ($i=0; $i < count($modelsDir); $i++) { 
+        for ($i=0; $i < count($modelsDir); $i++) {
 
             if($modelsDir[$i] == "." || $modelsDir[$i] == "..")
                 continue;
             
-            $readFile = file_get_contents($modelsDirPath."/".$modelsDir[$i]);
+            $readFile = file_get_contents($modelsBlocksDirPath."/".$modelsDir[$i]);
 
             $output = str_replace("%ModID%", $modID, $readFile);
             $output = str_replace("%BlockID%", $blockID, $output);
 
-            file_put_contents(__DIR__."/output/".$uid."/models/".str_replace("__blockid_",$blockID,$modelsDir[$i]), $output);
+            file_put_contents(__DIR__."/output/".$uid."/models/block/".str_replace("__blockid_",$blockID,$modelsDir[$i]), $output);
 
         }
 
@@ -118,6 +120,15 @@ as the mod id.
 
         $outputPath = __DIR__."/output/".$uid."/blockstates/".$blockID.".json";
         file_put_contents($outputPath, $outputBlockState);
+
+
+        $readItemState = file_get_contents(__DIR__."/templates/singleHeightDoor/models/item/__blockid__.json");
+
+        $outputItemState = str_replace("%ModID%", $modID, $readItemState);
+        $outputItemState = str_replace("%BlockID%", $blockID, $outputItemState);
+
+        $outputPath = __DIR__."/output/".$uid."/models/item/".$blockID.".json";
+        file_put_contents($outputPath, $outputItemState);
 
     }
     }
