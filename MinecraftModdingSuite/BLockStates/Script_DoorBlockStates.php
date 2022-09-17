@@ -17,9 +17,9 @@
 authors: Louis BERTRAND <contact@louisbertrand.studio>
 
 This tool will help ou create multiple files for you to
-add to your Mod/Ressourcepack Asset Folder.
+add to your Mod/Resourcepack Asset Folder.
 
-if you create a vanilla ressource pack please use minecraft
+if you create a vanilla Resource pack please use minecraft
 as the mod id.
 
 \033[93m[WARNING] to stop execution, combo ctrl+c or cmd+c\033[39m
@@ -127,5 +127,5 @@ as the mod id.
 
 your files are located in \033[92m'output/".$uid."'\033[39m.
 
-You can now copy the children folders in your mod/ressource pack.
+You can now copy the children folders in your mod/Resource pack.
 ");
